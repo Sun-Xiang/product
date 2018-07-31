@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/itembasicshow.css}" media="all"/>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<script type="text/javascript" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jqzoom.js}"></script>
+	<ul id="main_out">
+		<li id="product_li" class="item-box" th:fragment="itemShow">
+			<input type="hidden" class="item_id" th:value="${productInfo.id}"/>
+			<a class="itemshow_url" href="">
+			<div class="owner-info02">
+				<span href="" id="userId"></span>
+			</div>
+			<div class="item-thumb-wrap">
+				<span th:attr="data-group='gallery'+${productInfo.id}" data-magnify="gallery" data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas" th:href="'http://www.fuyto.com/images/'+${productInfo.imageUrl[0]}">		
+				<span th:attr="data-group='gallery'+${productInfo.id},data-src='http://www.fuyto.com/images/'+${imageUrl}" th:each="imageUrl,imageStart : ${productInfo.imageUrl}" th:if="${imageStart.count!=1}" data-magnify="gallery" data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas"></span>
+					<i class="zoom"></i>
+				</span>
+				<span th:each="imageUrl,imageStart : ${productInfo.imageUrl}"> 
+					<img th:if="${imageStart.count==1}" th:src="'http://www.fuyto.com/images/'+${imageUrl}" th:onload="'loadImg(this)'"/>
+				</span>
+			</div>
+			<div id="item-main">
+				<div id="item-main-top">
+					<h2 class="title">
+						<span th:text="${productInfo.name}"></span>
+					</h2>
+					<div class="item-main-info">
+						<p>
+							<span th:text="${productInfo.bidPrice}?${productInfo.bidPrice}:${productInfo.startPrice}"></span>元
+						</p>
+						<p>
+							<img alt="" class="icon_vmid icon_nyusatsu" width="13" height="13"/>
+							<span th:if="${productInfo.bidHistory}!=''" th:text="${productInfo.bidHistoryMap.total}"></span>
+						</p>
+						<p>
+							<img alt="" class="icon_vmid icon_time" width="13" height="13"/>
+							<span th:text="${productInfo.endDateTime}"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			</a>
+		</li>
+	</ul>
+	<script type="text/javascript" th:src="@{/js/itembasicshow.js}"></script>
+	<!-- <script th:inline="JavaScript"> 
+		let bidHistory = [[${productInfo.bidHistory}]];
+	</script> -->
+	
+</html>

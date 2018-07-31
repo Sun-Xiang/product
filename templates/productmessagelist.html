@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<!-- charset -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+		<title>富聿通</title>
+		<link rel="stylesheet" th:href="@{/css/page.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/productmessage.css}" />
+		
+		<script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+		<script th:src="@{/js/const.js}"></script>
+	</head>
+	<body>
+		<div style="overflow: auto; zoom: 1; //zoom: 1;">
+			<div>
+				<section class="tent_info">
+					<div class="col-md-12 col-sm-12 col-xl-12 textarea one">
+						<textarea class="text_send" id="text_send" wrap="hard"></textarea>
+						<div class="col-md-12 col-sm-12 col-xl-12 btn btn_send" name="sendMessage" id="sendMessage" onclick="sendMessage(0,'')">发送消息</div>
+					</div>
+					<div th:each="messageInfo : ${messageInfoPageable.content}" th:if="${messageInfo.messageTo}==0">
+						<div class="col-md-12 col-sm-12 col-xl-12 one cont">
+							<div class="col-md-10 col-sm-10 col-xl-12 one content">
+							<div class="comment-right">
+								<h4 th:text="${messageInfo.questionerId}"></h4>
+								<div class="comment-content-header three">
+									<span><span th:text="${messageInfo.updateDateTime}"></span></span>
+								</div>
+								<p class="tent" th:text="${messageInfo.message}"></p>
+								<div style="padding-left:50px;" class="replyDiv">
+									<div class="reply-list three" th:if="${messageInfo.replyMessage}">
+										<div class="reply">
+											<div class="three">
+												卖家回复:<span th:text="${messageInfo.replyMessage.updateDateTime}"></span>
+											</div>
+										</div>
+										<p><span th:id="'messageInfo'+${messageInfo.replyMessage.id}" th:text="${messageInfo.replyMessage.message}"></span></p>
+										<span style="color:red;cursor:pointer;" th:onclick="'updateMessageText(this,'+${messageInfo.replyMessage.id}+')'">修改</span>
+									</div>
+									<div class="contentReply" th:if="!${messageInfo.replyMessage}">
+										<span style="color:red;cursor:pointer;" onclick="messageReply(this)">回复</span>
+									</div>
+									<div class="col-md-12 col-sm-12 col-xl-12 content_text one three" th:if="!${messageInfo.replyMessage}">
+										<textarea class="col-md-10 col-sm-10 col-xl-10 con_back" th:id="'con_back'+${messageInfo.id}"></textarea>
+										<div class="col-md-2 col-sm-2 col-xl-2 btn btn_back" th:onclick="'sendMessage(1,'+${messageInfo.id}+')'">提交</div>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<ul id="list_page"></ul>
+			</div>
+		</div>
+		<script type="text/javascript"  th:inline="javascript">
+			var messageInfoList=/*[[${messageInfoPageable.content}]]*/;
+			var if_firstime = true;
+			var userId=/*[[${productId}]]*/;
+			var page_userid="productId";
+			var active="";
+			var getPage=/*[[${messageInfoPageable.number}]]*/;
+			var getTotalPages=/*[[${messageInfoPageable.totalPages}]]*/;
+			var getSize=/*[[${messageInfoPageable.size}]]*/;
+			var prevNum=getPage-1;
+			var nextNum=getPage+1;
+			var lastNum=getTotalPages-1;
+		</script>
+		<script th:if="${messageInfoPageable.totalPages}>0" th:src="@{/js/jqPage.js}"></script>
+		<script th:src="@{/js/productmessage.js}"></script>
+	</body>
+</html>

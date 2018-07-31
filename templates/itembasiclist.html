@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+        <!-- charset -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<script th:src="@{/js/const.js}"></script>
+		
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/itembasicshow.css}" media="all" />
+		<link rel="stylesheet" th:href="@{/css/page.css}" />
+		
+		<script th:src="@{/js/jqzoom.js}"></script>
+		<script th:src="@{/js/itemimg.js}"></script>
+	</head>
+	<body>
+		<div class="over-flow">
+		<ul class="main_out">
+			<li class="item-box" th:each="productInfo : ${productInfoPageable}" th:include="itembasicshow :: itemShow"></li>
+		</ul>
+		</div>
+		<div>
+		<ul id="list_page"></ul>
+		</div>
+	</body>
+	<script type="text/javascript"  th:inline="javascript">
+		var if_firstime = true;
+		var userId=/*[[${userId}]]*/;
+		var page_userid="userInfoId";
+		var active=/*[[${active}]]*/;
+		var getPage=/*[[${productInfoPageable.number}]]*/;
+		var getTotalPages=/*[[${productInfoPageable.totalPages}]]*/;
+		var getSize=/*[[${productInfoPageable.size}]]*/;
+		var prevNum=getPage-1;
+		var nextNum=getPage+1;
+		var lastNum=getTotalPages-1;
+	</script>
+	<script th:if="${productInfoPageable.totalPages}>0" th:src="@{/js/jqPage.js}"></script>
+	<script th:src="@{/js/itembasicshow.js}"></script>
+</html>  

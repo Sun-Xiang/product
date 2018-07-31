@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+        <!-- charset -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/const.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+	</head>
+	
+	<style>
+		.catdiv{
+			display: block;
+			overflow: hidden;
+		}
+		.catdiv ul,.catdiv span{
+			float:left;
+		}
+		.catdiv ul li{
+			cursor: pointer;
+			list-style:none;
+		}
+		.catdiv .catcheck{
+			color:red;
+		}
+	</style>
+	
+	<body>
+		<form id="formitemadd" name="formitemadd" enctype="multipart/form-data" method="POST" action="../productrest/add">
+			<input type="hidden" name="active" id="active" value="1" />
+			<input type="hidden" name="categoryCode" id="categoryCode" value="" />
+			<input type="hidden" name="userId" id="userId" value="" />
+			<div id="itemadd">
+				<br>
+					<div class="catdiv">
+						<span>选择分类:</span>
+						<ul id="category1_text">
+						</ul>
+					</div>
+				</br>
+				<br>
+					<div id="div_imgfile">选择图片</div>
+				</br>
+				<br> 
+					<div id="div_imglook">  
+						<div style="clear: both;">
+						</div>  
+					</div>
+				</br>
+				<br> 
+					<span>产品名称:</span>
+					<input type="text" name="name" id="name" value="" />
+				</br>
+				<br> 
+					<span>产品描述:</span>
+					<textarea rows="3" cols="30" name="productDescription" id="productDescription"></textarea>
+				</br>
+				<br>
+					<span>起拍价:</span>
+					<input type="text" name="basicPrice" id="basicPrice" value="100" />元
+				</br>
+				<br>
+					<span>一口价:</span>
+					<input type="text" name="directPrice" id="directPrice" value="" />元
+				</br>
+				<br>
+					<span>结束日期:</span>
+					<select name="dayCount" id="dayCount">
+						<option value="3" selected = "selected">3天后</option>
+						<option value="5">5天后</option>
+						<option value="7">7天后</option>
+					</select>
+				</br>
+				<br>
+					<span>结束时间:</span>
+					<select name="timeCount" id="timeCount">
+						<option value="0" selected = "selected">0:00</option>
+						<option value="1">1:00</option>
+						<option value="2">2:00</option>
+						<option value="3">3:00</option>
+						<option value="4">4:00</option>
+						<option value="5">5:00</option>
+						<option value="6">6:00</option>
+						<option value="7">7:00</option>
+						<option value="8">8:00</option>
+						<option value="9">9:00</option>
+						<option value="10">10:00</option>
+						<option value="11">11:00</option>
+						<option value="12">12:00</option>
+						<option value="13">13:00</option>
+						<option value="14">14:00</option>
+						<option value="15">15:00</option>
+						<option value="16">16:00</option>
+						<option value="17">17:00</option>
+						<option value="18">18:00</option>
+						<option value="19">19:00</option>
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+						<option value="22">22:00</option>
+						<option value="23">23:00</option>
+					</select>
+				</br>
+				<br>
+					<span>自动转售次数:</span>
+					<select name="autoResale" id="autoResale" onchange="resaleChange()">
+						<option value="0" selected = "selected">不转售</option>
+						<option value="1">1次</option>
+						<option value="2">2次</option>
+						<option value="3">3次</option>
+					</select>
+				</br>
+				<div id="autoPriceReduction_div">
+					<span class="autoPriceReduction_title">第一次转售自动降价:</span>
+					<select name="autoPriceReduction1" id="autoPriceReduction1">
+						<option value="0" selected = "selected">不降价</option>
+						<option value="5">5%</option>
+						<option value="10">10%</option>
+						<option value="15">15%</option>
+						<option value="20">20%</option>
+						<option value="25">25%</option>
+						<option value="30">30%</option>
+					</select>
+					<span class="autoPriceReduction_title">第二次转售自动降价:</span>
+					<select name="autoPriceReduction2" id="autoPriceReduction2">
+						<option value="0" selected = "selected">不降价</option>
+						<option value="5">5%</option>
+						<option value="10">10%</option>
+						<option value="15">15%</option>
+						<option value="20">20%</option>
+						<option value="25">25%</option>
+						<option value="30">30%</option>
+					</select>
+					<span class="autoPriceReduction_title">第三次转售自动降价:</span>
+					<select name="autoPriceReduction3" id="autoPriceReduction3">
+						<option value="0" selected = "selected">不降价</option>
+						<option value="5">5%</option>
+						<option value="10">10%</option>
+						<option value="15">15%</option>
+						<option value="20">20%</option>
+						<option value="25">25%</option>
+						<option value="30">30%</option>
+					</select>
+				</div>
+				<br>
+					<span>库存数量:</span>
+					<input type="text" name="inventory" id="inventory" value="1" />件
+				</br>
+				<br>
+					<span>赠送买家积分:</span>
+					<select name="pointsRate" id="pointsRate">
+						<option value="0" selected="selected">不赠送</option>
+						<option value="5">卖价的5%</option>
+						<option value="10">卖价的10%</option>
+						<option value="15">卖价的15%</option>
+						<option value="20">卖价的20%</option>
+					</select>
+				</br>
+				<br>
+					<span>运费承担:</span>
+					<select name="freightBearer" id="freightBearer">
+						<option value="1" selected = "selected">卖家负担</option>
+						<option value="2">买家负担</option>
+					</select>
+				</br>
+				<br>
+					<input name="" type="button" value="下一步" onclick="additemnext()"/>
+				</br>
+			</div>	
+			<div id="itemshow" style="display:none">
+				<br>
+					分类：<span id="category_text"></span>
+				</br>
+				<br>
+					图片：<span id="img_text"></span>
+				</br>
+				<br>
+					产品名称:<span id="name_text"></span>
+				</br>
+				<br>
+					产品描述:<span id="description_text"></span>
+				</br>
+				<br>
+					起拍价:<span id="basicPrice_text"></span>
+				</br>
+				<br>
+					一口价:<span id="directPrice_text"></span>
+				</br>
+				<br>
+					结束日期:<span id="endDate_text"></span>
+				</br>
+				<br>
+					结束时间:<span id="endTime_text"></span>
+				</br>
+				<br>
+					自动转售次数:<span id="autoResale_text"></span>
+				</br>
+				<br>
+					第一次转售降价:<span id="autoPriceReduction_text1"></span>
+				</br>
+				<br>
+					第二次转售降价:<span id="autoPriceReduction_text2"></span>
+				</br>
+				<br>
+					第三次转售降价:<span id="autoPriceReduction_text3"></span>
+				</br>
+				<br>
+					库存数量:<span id="inventory_text"></span>
+				</br>
+				<br>
+					积分:<span id="points_text"></span>
+				</br>
+				<br>
+					运费承担:<span id="freightBearer_text"></span>
+				</br>
+				<br>
+					<input name="" type="button" value="上一步" onclick="itemprev()" />
+					<!-- <input name="" type="button" value="完成" onclick="itemadd()" /> -->
+					<input name="" type="submit" value="完成" />
+				</br>
+			</div>
+		</form>
+	</body>
+	<script type="text/javascript" th:src="@{/js/user.js}"></script>
+	<script type="text/javascript" th:src="@{/js/itemadd.js}"></script>
+	
+	<style type="text/css">
+		/*选择图片框样式*/
+		#div_imgfile { 
+			cursor: pointer;  
+		}  
+		/*选择图片框鼠标移入移出效果*/  
+		#div_imgfile:hover {  
+			background-color: #d1cfcf; 
+			color:red;
+			cursor: pointer;
+		} 
+		.imgfile {  
+			display: none;  
+		}
+		/*这里是图片预览容器样式*/  
+		#div_imglook {  
+			margin-top: 20px;  
+			background-color: #FFEFD5;  
+		}
+		/*单个图片预览模块样式*/  
+		.lookimg {  
+			width: 130px;  
+			height: 130px;  
+			box-sizing: border-box;  
+			border: 1px solid #808080;  
+			float: left;  
+			margin-right: 10px;  
+			position: relative;  
+		}
+		.lookimg img {  
+			width: 100%;  
+			height: 100%;  
+		}
+		/*删除按钮样式*/  
+		.lookimg_delBtn {  
+			position: absolute;  
+			bottom: 0px;  
+			left: 0px;  
+			width: 100%;  
+			height: 30px;  
+			text-align: center;  
+			line-height: 30px;  
+			background-color: #808080;  
+			opacity: 0.8;  
+			color: white;  
+			font-size: 16px;  
+			font-family: 微软雅黑;  
+			display: none;  
+			cursor: pointer;  
+		}
+		/*删除按钮移入移出效果*/  
+		.lookimg_delBtn:hover {  
+			opacity: 1;  
+		}   
+		/*上传进度条样式*/  
+		.lookimg_progress {  
+			position: absolute;  
+			bottom: 15px;  
+			left: 0px;  
+			width: 100%;  
+			height: 20px;  
+			background-color: #e0e0e0;  
+			box-sizing: border-box;  
+			border: 1px solid black;  
+			display: none;  
+			text-align: center;  
+			line-height: 20px;  
+			font-size: 14px;  
+		}   
+		.lookimg_progress div {  
+			position: absolute;  
+			left: 0px;  
+			top: 0px;  
+			height: 100%;  
+			width: 0px;  
+			background-color: #e9cc2e;  
+		} 
+	</style>
+</html>

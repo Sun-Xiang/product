@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+        <!-- charset -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/const.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+	</head>
+	<body>
+		<form action="../order/directTransaction" method="post">
+			<input type="hidden" name="productId" th:value="${productId}"/>
+			<input type="hidden" name="buyerId" th:value="${buyerId}"/>
+			<table >
+				<tr>
+					<td>收货地址</td>
+					<td>
+						<select class="form-control" name="addressId">
+		                	<option th:each="address:${addressList}" th:value="${address.id}" th:text="${address.city}+${address.detail}"></option>
+		                </select>
+					</td>
+				</tr>
+				<tr>
+					<td>积分</td>
+					<td th:text="${points}"></td>
+					<input type="checkbox" name="isPoints" th:text="使用积分"/>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="支付"/> </td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

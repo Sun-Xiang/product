@@ -1,0 +1,34 @@
+#
+#本地配置加载地址
+#
+#spring:
+#  application:
+#    name: product
+#  cloud: 
+#    config: 
+#      label: develop
+#      profile: test
+#      uri: http://locahost:8888/
+#server:
+#  port: 8881
+#endpoints:
+#  refresh:
+#    enabled: true
+#    sensitive: false
+#
+#远程测试服务器配置加载地址
+#
+#spring:
+#  application:
+#    name: product
+#  cloud: 
+#    config: 
+#      label: develop
+#      profile: test
+#      uri: http://10.10.10.109:8888/
+#server:
+#  port: 8881
+#endpoints:
+#  refresh:
+#    enabled: true
+#    sensitive: false

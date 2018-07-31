@@ -1,0 +1,6 @@
+source files: 		target/product-0.0.1-SNAPSHOT.jar
+Remove prefix: 		target/
+Remote directory: 	product
+Exec command: 		BUILD_ID=product
+					cd /opt/exec/product
+					sh product.sh

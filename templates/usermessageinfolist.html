@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<!-- charset -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+		<title>富聿通</title>
+		<link rel="stylesheet" th:href="@{/css/page.css}" />
+		
+		<script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+		<script th:src="@{/js/const.js}"></script>
+	</head>
+	<body>
+		<div>
+			<div>
+				<table>
+					<tr th:each="messageInfo : ${messageInfoPageable.content}">
+						<td><a class="itemshow_url" th:attr="data-id=${messageInfo.productId},data-messageid=${messageInfo.id}" th:text="${messageInfo.message}">商品名称</a></td>
+					</tr>
+				</table>
+				<a style="float:right;" th:href="'./usermessageinfo?userId='+${userId}">返回信息页</a>
+				<ul id="list_page"></ul>
+			</div>
+			
+			<script type="text/javascript"  th:inline="javascript">
+				var if_firstime = true;
+				var userId=/*[[${userId}]]*/;
+				var page_userid="userId";
+				var active="";
+				var getPage=/*[[${messageInfoPageable.number}]]*/;
+				var getTotalPages=/*[[${messageInfoPageable.totalPages}]]*/;
+				var getSize=/*[[${messageInfoPageable.size}]]*/;
+				var prevNum=getPage-1;
+				var nextNum=getPage+1;
+				var lastNum=getTotalPages-1;
+			</script>
+			<script th:if="${messageInfoPageable.totalPages}>0" th:src="@{/js/jqPage.js}"></script>
+			<script th:src="@{/js/usermessage.js}"></script>
+		</div>
+	</body>
+</html>

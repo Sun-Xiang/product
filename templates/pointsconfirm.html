@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+        <!-- charset -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/const.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+	</head>
+	<body>
+		<form action="../bill/confirmPayment">
+			<span th:text="${status}"> </span>
+			<span th:text="${surplusPoints}"> </span>
+			<input type="submit" value="确认"/>
+		</form>
+	</body>
+</html>
