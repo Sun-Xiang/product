@@ -9,30 +9,47 @@
 		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/const.js}"></script>
 		<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+		<script type="text/javascript" th:src="@{/js/directtransaction.js}"></script>
 	</head>
 	<body>
 		<form action="../order/directTransaction" method="post">
 			<input type="hidden" name="productId" th:value="${productId}"/>
 			<input type="hidden" name="buyerId" th:value="${buyerId}"/>
-			<table >
-				<tr>
-					<td>收货地址</td>
-					<td>
-						<select class="form-control" name="addressId">
-		                	<option th:each="address:${addressList}" th:value="${address.id}" th:text="${address.city}+${address.detail}"></option>
-		                </select>
-					</td>
-				</tr>
-				<tr>
-					<td>积分</td>
-					<td th:text="${points}"></td>
-					<input type="checkbox" name="isPoints" th:text="使用积分"/>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" value="支付"/> </td>
-				</tr>
+			<table>
+			<tr>
+				<td>收货地址</td>
+				<td>
+					<select class="form-control" name="addressId">
+	                	<option th:each="address:${addressList}" th:value="${address.id}" th:text="${address.city}+${address.detail}"></option>
+	                </select>
+				</td>
+			</tr>
+			<tr>
+				<td>购买的产品</td>
+				<li th:include="itembasicshow :: itemShow"></li>
+			</tr>
+			
+			<tr>
+				<td>剩余积分</td>
+				<input type="hidden" name="orignalPoints" id="orignalPoints" th:value="${points}" />
+				<td id="points" name="points" th:text="${points}"></td>
+				<td>使用积分</td>
+				<td id="usedPoints" name="usedPoints" th:text="0"></td>
+			</tr>
+			<tr>
+				<input type="checkbox" name="isPoints" id="isPoints" th:text="使用积分" onclick="pointCheckboxOnclick()" />
+			</tr>
+			<tr>
+				<td>还需支付</td>
+				<input type="hidden" name="price" id="price" th:value="${directPrice}" />
+				<td id="directPrice" name="directPrice" th:text="${directPrice}"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="支付"/> </td>
+			</tr>
 			</table>
 		</form>
 	</body>
+<script type="text/javascript" th:src="@{/js/directTransaction.js}"></script>
 </html>

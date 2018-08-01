@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+        <!-- charset -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<script th:src="@{/js/const.js}"></script>
+		
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/itembasicshow.css}" media="all" />
+		<link rel="stylesheet" th:href="@{/css/page.css}" />
+		
+		<script th:src="@{/js/jqzoom.js}"></script>
+		<script th:src="@{/js/itemimg.js}"></script>
+        
+        <title>富聿通</title>
+	</head>
+	<body>
+       <div id="wrapper" class="idx">
+           <div id="content" class="clearfix">
+			<div id="main_list" class="over-flow">
+				<div>
+					每页显示：<select onchange="pageChange(this)">
+						<option value="20" th:selected="${productInfoPageable.size}==20?'selected'">20</option>
+						<option value="30" th:selected="${productInfoPageable.size}==30?'selected'">30</option>
+						<option value="40" th:selected="${productInfoPageable.size}==40?'selected'">40</option>
+						<option value="50" th:selected="${productInfoPageable.size}==50?'selected'">50</option>
+					</select>
+				</div>
+				<div>
+					<button th:text="!${productInfoSearch.mostPointSort}?'折扣率▼':'折扣率▲'" onclick="mostPoint()"></button>
+					<button th:text="!${productInfoSearch.priceSort}?'价格▼':'价格▲'" onclick="price()">价格▼</button>
+					<button th:text="!${productInfoSearch.totalBidSort}?'竞拍▼':'竞拍▲'" onclick="totalBid()">竞拍▼</button>
+					<button th:text="!${productInfoSearch.endDateTimeSort}?'剩余时间▼':'剩余时间▲'" onclick="endDateTime()">剩余时间▼</button>
+				</div>
+				<div class="over-flow">
+					<ul class="main_out">
+						<li class="item-box" th:each="productInfo : ${productInfoPageable}" th:include="itembasicshow :: itemShow"></li>
+					</ul>
+					</div>
+					<div>
+					<ul id="list_page"></ul>
+				</div>
+			</div>
+           </div>
+       </div>
+	</body>
+	<script type="text/javascript"  th:inline="javascript">
+	 function outputObj(obj) {  
+		    var description = "";  
+		    for (var i in obj) {  
+		        description += i + " = " + obj[i] + "\n";  
+		    }  
+		    alert(description);  
+		 }
+	 	var categoryCode=/*[[${categoryCode}]]*/;
+		var mostPointSort=/*[[${productInfoSearch.mostPointSort}]]*/;
+		var priceSort=/*[[${productInfoSearch.priceSort}]]*/;
+		var totalBidSort=/*[[${productInfoSearch.totalBidSort}]]*/;
+		var endDateTimeSort=/*[[${productInfoSearch.endDateTimeSort}]]*/;
+		var if_firstime = true;
+		var getPage=/*[[${productInfoPageable.number}]]*/;
+		var getTotalPages=/*[[${productInfoPageable.totalPages}]]*/;
+		var getSize=/*[[${productInfoPageable.size}]]*/;
+		var prevNum=getPage-1;
+		var nextNum=getPage+1;
+		var lastNum=getTotalPages-1;
+	</script>
+	<script th:src="@{/js/itemlist.js}"></script>
+	<script th:if="${productInfoPageable.totalPages}>0" th:src="@{/js/productlistpage.js}"></script>
+	<script th:src="@{/js/itembasicshow.js}"></script>
+</html>

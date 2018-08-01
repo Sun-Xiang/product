@@ -10,11 +10,16 @@
 		<script type="text/javascript" th:src="@{/js/const.js}"></script>
 		<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
 	</head>
-	<body>
-		<form action=" ">
-			<span th:text="${status}"> </span>
-			<span th:text="${surplusPoints}"> </span>
-			<input type="submit" value="确认"/>
-		</form>
-	</body>
+<body>
+<form action="../bill/confirmPayment">
+<span th:text="${status}"> </span>
+积分：<span th:if="${surplusPoints} le 0" >0</span><br/>
+产品编号：<span th:text="${newProductOrder.productId}"></span><br/>
+成交价格：<span th:text="${newProductOrder.transactionPrice}"></span><br/>
+产品名：<span th:text="${productName}"></span>
+<input type="submit" value="确认"/>
+</form>
+
+
+</body>
 </html>
