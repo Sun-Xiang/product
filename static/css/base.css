@@ -17,7 +17,7 @@
  .submit-btn:hover{
     background:#F90;
  }
- .add-address>div>span, #itemadd div span, #autoPriceReduction_div div span{
+ .add-address>div>span, #itemadd div span, #autoPriceReduction_div div span, #main_list div span{
      padding-right: 30px;
      display:inline-block;
      width: 200px;
