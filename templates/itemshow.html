@@ -92,6 +92,7 @@
 		<form action="../order/direct" method="post">
 			<input type="hidden" name="userId" id="userId" value=""/>
 			<input type="hidden" name="id" id="id" th:value="${ProductInfo.id}" />
+			<input type="hidden" name="directPrice" id="directPrice" value="${ProductInfo.directPrice}" />
 			<input type="submit" value="一口价" th:if="${ProductInfo.directPrice} != null"/>
 		</form>
 		

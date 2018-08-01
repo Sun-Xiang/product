@@ -10,7 +10,6 @@ $(function(){
 	$(".main_out .zoom").css("background" , "url(" + site_url_item + "img/zoom.png)");
 	$(".main_out .icon_nyusatsu").attr("src" , site_url_item + "img/icon_nyusatsu.png");
 	$(".main_out .icon_time").attr("src" , site_url_item + "img/icon_time.png");
-	
 })
 //zoom
 $('[data-magnify]').magnify({

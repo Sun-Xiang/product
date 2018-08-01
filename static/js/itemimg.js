@@ -1,7 +1,7 @@
 //图片自适应宽的
 function loadImg(img){
 	var cimg=img;
-	var div_w=190;
+	var div_w=177;
 	var div_h=150;
 	var img_w=cimg.width;
 	var img_h=cimg.height;
